@@ -12,7 +12,7 @@ var UserSchema = new mongoose.Schema({
     tel: String,
     title: String,
     experience: String,
-    estudios: [String]
+    estudios: Array
 })
 
 UserSchema.plugin(mongoosePaginate)

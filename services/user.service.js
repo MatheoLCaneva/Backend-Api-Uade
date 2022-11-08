@@ -63,6 +63,10 @@ exports.createUser = async function (user) {
 
     }
 
+    else {
+        throw Error("Rol must be Estudiante or Profesor")
+    }
+
     try {
         // Saving the User 
         var savedUser = await newUser.save();
