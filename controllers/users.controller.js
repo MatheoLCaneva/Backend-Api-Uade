@@ -85,10 +85,10 @@ exports.updateUser = async function (req, res, next) {
 
 exports.removeUser = async function (req, res, next) {
 
-    var id = req.params.id;
-    console.log(id)
+    var mail = req.body.mail;
+    console.log(mail)
     try {
-        var deleted = await UserService.deleteUser(id);
+        var deleted = await UserService.deleteUser(mail);
         res.status(200).send("Succesfully Deleted... ");
     } catch (e) {
         return res.status(400).json({status: 400, message: e.message})

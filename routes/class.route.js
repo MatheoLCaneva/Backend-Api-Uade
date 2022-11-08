@@ -3,8 +3,6 @@ var router = express.Router()
 var ClassController = require('../controllers/class.controller');
 var UploadController = require('../controllers/upload.controller');
 var MailController = require('../controllers/mail.controller');
-var Authorization = require('../auth/authorization');
-
 
 // Authorize each API with middleware and map to the Controller Functions
 /* GET users listing. */
@@ -15,7 +13,7 @@ router.post('/create', ClassController.createClass)
 router.get('/', ClassController.getClasses)
 router.post('/classById', ClassController.getClassById)
 router.put('/', ClassController.updateClass)
-router.delete('/:id', ClassController.removeClass)
+router.delete('/', ClassController.removeClass)
 router.post('/sendMail', MailController.sendEmail)
 
 

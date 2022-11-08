@@ -48,7 +48,7 @@ exports.createClass = async function (clase) {
     } catch (e) {
         // return a Error message describing the reason 
         console.log(e)
-        throw Error("Error while Creating User")
+        throw Error("Error while Creating Class")
     }
 }
 
@@ -88,7 +88,7 @@ exports.deleteClass = async function (id) {
     console.log("id mandado", id)
     try {
         var deleted = await Class.remove({
-            _id: id
+            id: id
         })
         console.log("Clase", deleted)
         if (deleted.n === 0 && deleted.ok === 1) {

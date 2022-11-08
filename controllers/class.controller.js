@@ -27,7 +27,7 @@ exports.getClassById = async function (req, res) {
     var page = req.query.page ? req.query.page : 1
     var limit = req.query.limit ? req.query.limit : 10;
     let filtro= {id: req.body.id}
-    try {
+        try {
         var Classes = await ClassService.getClasses(filtro, page, limit)
         // Return the Users list with the appropriate HTTP password Code and Message.
         return res.status(200).json({status: 200, data: Classes, message: "Succesfully Class Recieved"});
@@ -68,7 +68,6 @@ exports.updateClass = async function (req, res, next) {
         return res.status(400).json({status: 400., message: "Id be present"})
     }
 
-    
     var Clase = {
         id: req.body.id,
         tipo: req.body.tipo ? req.body.tipo : null,
@@ -88,7 +87,7 @@ exports.updateClass = async function (req, res, next) {
 
 exports.removeClass = async function (req, res, next) {
 
-    var id = req.params.id;
+    var id = req.body.id;
     console.log(id)
     try {
         var deleted = await ClassService.deleteClass(id);

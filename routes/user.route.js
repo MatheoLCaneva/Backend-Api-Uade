@@ -16,7 +16,7 @@ router.post('/login/', UserController.loginUser)
 router.get('/',Authorization, UserController.getUsers)
 router.post('/userByMail', Authorization, UserController.getUsersByMail)
 router.put('/', Authorization, UserController.updateUser)
-router.delete('/:id', Authorization, UserController.removeUser)
+router.delete('/', Authorization, UserController.removeUser)
 router.post('/guardarImgUser',UserController.guardarImagenUser)
 router.post('/uploadImg',UploadController.uploadFilesImgUser);
 router.post('/imgUserByMail',Authorization,UserController.getImagenUserByMail)

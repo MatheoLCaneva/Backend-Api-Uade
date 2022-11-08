@@ -106,13 +106,13 @@ exports.updateUser = async function (user) {
     }
 }
 
-exports.deleteUser = async function (id) {
+exports.deleteUser = async function (mail) {
 
     // Delete the User
-    console.log("id mandado", id)
+    console.log("mail mandado", mail)
     try {
         var deleted = await User.remove({
-            _id: id
+            mail: mail
         })
         console.log("Usuario", deleted)
         if (deleted.n === 0 && deleted.ok === 1) {
