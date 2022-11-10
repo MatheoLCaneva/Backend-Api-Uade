@@ -26,7 +26,8 @@ exports.getClassById = async function (req, res) {
     // Check the existence of the query parameters, If doesn't exists assign a default value
     var page = req.query.page ? req.query.page : 1
     var limit = req.query.limit ? req.query.limit : 10;
-    let filtro= {id: req.body.id}
+
+    let filtro= req.body
         try {
         var Classes = await ClassService.getClasses(filtro, page, limit)
         // Return the Users list with the appropriate HTTP password Code and Message.
@@ -38,8 +39,10 @@ exports.getClassById = async function (req, res) {
 }
 
 exports.createClass = async function (req, res) {
-    // Req.Body contains the form submit values.
+    // Req.Body contains the form submit values.{}
     console.log("llegue al controller",req.body)
+    console.log(req.body)
+    // console.log(typeof(req.headers.profesor))
     var Class = {
         id: req.body.id,
         materia: req.body.materia,
@@ -48,7 +51,7 @@ exports.createClass = async function (req, res) {
         duracion: req.body.duracion ,
         precio: req.body.precio,
         descripcion: req.body.descripcion,
-        profesor: req.headers['profesor']
+        profesor: req.body.profesor
     }
     try {
         // Calling the Service function with the new object from the Request Body

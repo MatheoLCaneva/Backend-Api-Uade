@@ -29,7 +29,7 @@ exports.getClasses = async function (query, page, limit) {
 
 exports.createClass = async function (clase) {
 
-    var profesor = JSON.parse(clase.profesor)
+    // var profesor = JSON.parse(clase.profesor)
     // Creating a new Mongoose Object by using the new keyword
     var newClass = new Class({
         id: clase.id,
@@ -39,7 +39,7 @@ exports.createClass = async function (clase) {
         duracion: clase.duracion,
         precio: clase.precio,
         descripcion: clase.descripcion,
-        profesor: profesor
+        profesor: clase.profesor
     })
 
     try {
