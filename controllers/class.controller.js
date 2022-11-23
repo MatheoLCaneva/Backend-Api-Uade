@@ -26,7 +26,7 @@ exports.getClassById = async function (req, res) {
     // Check the existence of the query parameters, If doesn't exists assign a default value
     var page = req.query.page ? req.query.page : 1
     var limit = req.query.limit ? req.query.limit : 10;
-
+    console.log('body', req.body)
     let filtro = req.body
     console.log('controller filtro', filtro)
         try {
@@ -91,11 +91,11 @@ exports.updateClass = async function (req, res, next) {
 
 exports.removeClass = async function (req, res, next) {
 
-    var id = req.body.id;
-    console.log(id)
+    var _id = req.body._id;
+    console.log(_id)
     try {
-        var deleted = await ClassService.deleteClass(id);
-        res.status(200).send("Succesfully Deleted... ");
+        var deleted = await ClassService.deleteClass(_id);
+        res.status(200).json({usuario: deleted, message: "Succesfully Deleted... "});
     } catch (e) {
         return res.status(400).json({status: 400, message: e.message})
     }
