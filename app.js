@@ -12,6 +12,7 @@ var apiRouter = require('./routes/user.route'); //Custom
 var utilRouter = require('./routes/utils');
 var classRouter = require('./routes/class.route')
 var commentRouter = require('./routes/comment.route')
+var contactRouter = require('./routes/contact.route')
 
 //instancio el servidor
 var app = express();
@@ -33,6 +34,7 @@ app.use('/', indexRouter);
 app.use('/utils/',utilRouter);
 app.use('/classes', classRouter)
 app.use('/comments', commentRouter)
+app.use('/contacts', contactRouter)
 
 //onsole.log("processENV",process.env);
 if (process.env.NODE_ENV === 'Development') {
