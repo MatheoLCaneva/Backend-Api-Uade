@@ -50,6 +50,7 @@ exports.createUser = async function (user) {
 
         newUser = new User({
             name: user.name,
+            apellido: user.apellido,
             email: user.email,
             date: new Date(),
             password: hashedPassword,
@@ -58,7 +59,8 @@ exports.createUser = async function (user) {
             tel: user.tel,
             title: user.title,
             experience: user.experience,
-            estudios: user.estudios
+            estudios: user.estudios,
+            imgUser: user.imgUser
         })
 
     }

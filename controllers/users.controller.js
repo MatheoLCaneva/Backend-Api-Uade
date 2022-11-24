@@ -41,6 +41,7 @@ exports.createUser = async function (req, res) {
     console.log("llegue al controller",req.body)
     var User = {
         name: req.body.name,
+        apellido: req.body.apellido,
         email: req.body.email,
         password: req.body.password,
         birth: req.body.birth ,
@@ -48,7 +49,8 @@ exports.createUser = async function (req, res) {
         tel: req.body.tel ,
         title: req.body.title ,
         experience: req.body.experience ,
-        estudios: req.body.estudios
+        estudios: req.body.estudios,
+        imgUser: req.body.imgUser
     }
     try {
         // Calling the Service function with the new object from the Request Body

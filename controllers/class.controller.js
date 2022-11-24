@@ -52,7 +52,8 @@ exports.createClass = async function (req, res) {
         duracion: req.body.duracion ,
         precio: req.body.precio,
         descripcion: req.body.descripcion,
-        profesor: req.body.profesor
+        profesor: req.body.profesor,
+        profesormail: null
     }
     try {
         // Calling the Service function with the new object from the Request Body
