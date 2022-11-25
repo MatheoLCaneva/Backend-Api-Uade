@@ -21,7 +21,7 @@ exports.getContacts = async function (req, res, next) {
         return res.status(400).json({status: 400, message: e.message});
     }
 }
-exports.getClassById = async function (req, res) {
+exports.getContactByMail = async function (req, res) {
 
     // Check the existence of the query parameters, If doesn't exists assign a default value
     var page = req.query.page ? req.query.page : 1
@@ -29,9 +29,9 @@ exports.getClassById = async function (req, res) {
 
     let filtro= req.body
         try {
-        var Classes = await ContactService.getClasses(filtro, page, limit)
+        var Contacts = await ContactService.getContacts(filtro, page, limit)
         // Return the Users list with the appropriate HTTP password Code and Message.
-        return res.status(200).json({status: 200, data: Classes, message: "Succesfully Class Recieved"});
+        return res.status(200).json({status: 200, data: Contacts, message: "Succesfully Class Recieved"});
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.
         return res.status(400).json({status: 400, message: e.message});
@@ -44,17 +44,17 @@ exports.createContact = async function (req, res) {
     // console.log(typeof(req.headers.profesor))
     var Contact = {
         id: req.body.id,
-        profesor: req.body.profesor,
+        profesormail: req.body.profesormail,
         alumno: req.body.alumno,
         telefonoContacto: req.body.telefonoContacto ,
         mailContacto: req.body.mailContacto ,
         horario: req.body.horario,
-        clase: req.body.clase
+        claseId: req.body.claseId
     }
     try {
         // Calling the Service function with the new object from the Request Body
         var createdContact = await ContactService.createContact(Contact)
-        return res.status(201).json({createdContact   , message: "Succesfully Created Contact"})
+        return res.status(201).json({status:201 , message: "Succesfully Created Contact"})
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.
         console.log(e)
@@ -65,12 +65,12 @@ exports.createContact = async function (req, res) {
 exports.updateContact = async function (req, res, next) {
 
     // Id is necessary for the update
-    if (!req.body.id) {
+    if (!req.body._id) {
         return res.status(400).json({status: 400., message: "Id be present"})
     }
 
     var Contact = {
-        id: req.body.id,
+        _id: req.body._id,
         estado: req.body.estado
     }
     try {

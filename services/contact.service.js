@@ -34,12 +34,12 @@ exports.createContact = async function (contacto) {
     // Creating a new Mongoose Object by using the new keyword
     var newContact = new Contacto({
         id: contacto.id,
-        profesor: contacto.profesor,
+        profesormail: contacto.profesormail,
         alumno: contacto.alumno,
         telefonoContacto: contacto.telefonoContacto,
         mailContacto: contacto.mailContacto,
         horario: contacto.horario,
-        clase: contacto.clase,
+        claseId: contacto.claseId,
         estado: 'Solicitada'
     })
 
@@ -55,12 +55,12 @@ exports.createContact = async function (contacto) {
 
 exports.updateContact = async function (contacto) {
 
-    console.log(contacto.id)
-    var id = { id: contacto.id }
+    console.log(contacto._id)
+    var _id = { _id: contacto._id }
 
     try {
         //Find the old User Object by the Id    
-        var oldContact = await Contacto.findOne(id);
+        var oldContact = await Contacto.findOne(_id);
     } catch (e) {
         throw Error("Error occured while Finding the Contact")
     }
