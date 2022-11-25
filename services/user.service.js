@@ -36,13 +36,15 @@ exports.createUser = async function (user) {
     if (user.rol == "Estudiante") {
         newUser = new User({
             name: user.name,
+            apellido: user.apellido,
             email: user.email,
             date: new Date(),
             password: hashedPassword,
             birth: user.birth,
             rol: user.rol,
             tel: user.tel,
-            estudios: user.estudios
+            estudios: user.estudios,
+            imgUser: user.imgUser
         })
     }
 
@@ -54,6 +56,7 @@ exports.createUser = async function (user) {
             email: user.email,
             date: new Date(),
             password: hashedPassword,
+            descripcionProfesor: user.descripcionProfesor,
             birth: user.birth,
             rol: user.rol,
             tel: user.tel,

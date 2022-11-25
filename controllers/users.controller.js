@@ -50,7 +50,8 @@ exports.createUser = async function (req, res) {
         title: req.body.title ,
         experience: req.body.experience ,
         estudios: req.body.estudios,
-        imgUser: req.body.imgUser
+        imgUser: req.body.imgUser,
+        descripcionProfesor: req.body.descripcionProfesor
     }
     try {
         // Calling the Service function with the new object from the Request Body
