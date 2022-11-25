@@ -10,7 +10,8 @@ var ClassSchema = new mongoose.Schema({
     duracion: String,
     precio: String,
     descripcion: String,
-    profesor: Object
+    profesor: Object,
+    profesormail: String
 })
 
 ClassSchema.plugin(mongoosePaginate)

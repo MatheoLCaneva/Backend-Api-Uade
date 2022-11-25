@@ -39,7 +39,8 @@ exports.createClass = async function (clase) {
         duracion: clase.duracion,
         precio: clase.precio,
         descripcion: clase.descripcion,
-        profesor: clase.profesor
+        profesor: clase.profesor,
+        profesormail: clase.profesormail
     })
 
     try {
@@ -54,25 +55,31 @@ exports.createClass = async function (clase) {
 
 exports.updateClass = async function (clase) {
 
-    console.log(clase.id)
-    var id = { id: clase.id }
-
+    var _id = { _id: clase._id }
+    console.log(_id)
     try {
         //Find the old User Object by the Id    
-        var oldClass = await Class.findOne(id);
+        var oldClass = await Class.findOne(_id);
     } catch (e) {
         throw Error("Error occured while Finding the Class")
     }
     // If no old User Object exists return false
     if (!oldClass) {
+
         return false;
+
     }
-    //Edit the User Object
-    oldClass.tipo = clase.tipo
-    oldClass.frecuencia = clase.frecuencia
-    oldClass.duracion = clase.duracion
-    oldClass.precio = clase.precio
-    oldClass.descripcion = clase.descripcion
+    const keysClaseNueva = Object.keys(clase)
+    const valuesClaseNueva = Object.values(clase)
+    console.log(valuesClaseNueva.length)
+
+    for (let i = 0; i < valuesClaseNueva.length; i++) {
+        oldClass[keysClaseNueva[i]] = valuesClaseNueva[i]
+    }
+
+    console.log(oldClass)
+
+
 
     try {
         var savedClass = await oldClass.save()

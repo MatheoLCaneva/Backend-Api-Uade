@@ -87,11 +87,12 @@ exports.createUser = async function (user) {
 
 exports.updateUser = async function (user) {
 
-    var id = { name: user.name }
-
+    var _id = { _id: user._id }
+    console.log('pase el controller')
+    console.log(user)
     try {
         //Find the old User Object by the Id
-        var oldUser = await User.findOne(id);
+        var oldUser = await User.findOne(_id);
     } catch (e) {
         throw Error("Error occured while Finding the User")
     }
@@ -100,10 +101,8 @@ exports.updateUser = async function (user) {
         return false;
     }
     //Edit the User Object
-    var hashedPassword = bcrypt.hashSync(user.password, 8);
-    oldUser.name = user.name
     oldUser.email = user.email
-    oldUser.password = hashedPassword
+    oldUser.tel = user.tel
     try {
         var savedUser = await oldUser.save()
         return savedUser;

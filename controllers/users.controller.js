@@ -66,16 +66,11 @@ exports.createUser = async function (req, res) {
 exports.updateUser = async function (req, res, next) {
 
     // Id is necessary for the update
-    if (!req.body.name) {
-        return res.status(400).json({status: 400., message: "Name be present"})
-    }
-
     
-    var User = {
-       
-        name: req.body.name ? req.body.name : null,
+    var User = {     
+        _id: req.body._id,
         email: req.body.email ? req.body.email : null,
-        password: req.body.password ? req.body.password : null
+        tel: req.body.tel ? req.body.tel : null
     }
     try {
         var updatedUser = await UserService.updateUser(User)

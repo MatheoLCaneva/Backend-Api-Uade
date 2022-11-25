@@ -8,6 +8,7 @@ var config = require('../config').config();
 var authorization = function (req, res, next) {
 
     var token = req.headers['x-access-token'];
+    console.log(typeof(token))
     console.log("token",token);
     var msg = {auth: false, message: 'No token provided.'};
     if (!token)
@@ -19,6 +20,7 @@ var authorization = function (req, res, next) {
         var msg = {auth: false, message: 'Failed to authenticate token.'};
         if (err)
         res.status(500).send(msg);
+        console.log('REQID', req.userId)
         req.userId = decoded.id;
         next();
     });

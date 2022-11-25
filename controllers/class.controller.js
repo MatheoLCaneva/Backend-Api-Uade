@@ -53,7 +53,7 @@ exports.createClass = async function (req, res) {
         precio: req.body.precio,
         descripcion: req.body.descripcion,
         profesor: req.body.profesor,
-        profesormail: null
+        profesormail: req.body.profesormail
     }
     try {
         // Calling the Service function with the new object from the Request Body
@@ -69,19 +69,12 @@ exports.createClass = async function (req, res) {
 exports.updateClass = async function (req, res, next) {
 
     // Id is necessary for the update
-    if (!req.body.id) {
+    if (!req.body._id) {
         return res.status(400).json({status: 400., message: "Id be present"})
     }
 
-    var Clase = {
-        id: req.body.id,
-        tipo: req.body.tipo ? req.body.tipo : null,
-        frecuencia: req.body.frecuencia ? req.body.frecuencia : null,
-        duracion: req.body.duracion ? req.body.duracion : null,
-        precio: req.body.precio ? req.body.precio : null,
-        descripcion: req.body.descripcion ? req.body.descripcion : null
+    var Clase = req.body
 
-    }
     try {
         var updatedClass = await ClassService.updateClass(Clase)
         return res.status(200).json({status: 200, data: updatedClass, message: "Succesfully Updated Class"})

@@ -15,11 +15,8 @@ router.post('/registration', UserController.createUser)
 router.post('/login/', UserController.loginUser)
 router.get('/',Authorization, UserController.getUsers)
 router.post('/userByMail', Authorization, UserController.getUsersByMail)
-router.put('/', Authorization, UserController.updateUser)
+router.put('/', UserController.updateUser)
 router.delete('/', Authorization, UserController.removeUser)
-router.post('/guardarImgUser',UserController.guardarImagenUser)
-router.post('/uploadImg',UploadController.uploadFilesImgUser);
-router.post('/imgUserByMail',Authorization,UserController.getImagenUserByMail)
 router.post('/sendMail',MailController.sendEmail)
 
 
