@@ -13,7 +13,7 @@ router.get('/test', function (req, res) {
 });
 router.post('/create', CommentController.createComment)
 router.get('/', CommentController.getComments)
-router.post('/classById', CommentController.getCommentsByClass)
+router.post('/commentsByMail', CommentController.getCommentsByMail)
 router.put('/', CommentController.updateComment)
 router.delete('/', CommentController.removeComment)
 router.post('/sendMail', MailController.sendEmail)

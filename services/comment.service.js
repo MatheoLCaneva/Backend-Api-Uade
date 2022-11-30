@@ -18,7 +18,7 @@ exports.getComments = async function (query, page, limit) {
         console.log("Query", query)
         var Comments = await Comment.paginate(query, options)
         // Return the Userd list that was retured by the mongoose promise
-        return  Comments;
+        return Comments;
 
     } catch (e) {
         // return a Error message describing the reason 
@@ -34,7 +34,8 @@ exports.createComment = async function (comment) {
         comentario: comment.comentario.toUpperCase(),
         usuario: comment.usuario,
         clase: comment.clase,
-        estado: false
+        estado: comment.estado,
+        profesor: comment.profesor
     })
 
     try {
@@ -48,9 +49,9 @@ exports.createComment = async function (comment) {
 }
 
 exports.updateState = async function (comment) {
+    var filtro = { _id: comment.clase, usuario: comment.usuario }
 
-    var filtro = { clase: comment.clase, usuario: comment.usuario } 
-
+    console.log("filtro", filtro)
     try {
         //Find the old User Object by the Id    
         var oldComment = await Comment.findOne(filtro);
@@ -62,7 +63,7 @@ exports.updateState = async function (comment) {
         return false;
     }
     //Edit the User Object
-    oldComment.estado = true
+    oldComment.estado = comment.estado
 
     try {
         var savedComment = await oldComment.save()
@@ -72,13 +73,13 @@ exports.updateState = async function (comment) {
     }
 }
 
-exports.deleteComment = async function (clase, usuario) {
+exports.deleteComment = async function (id, usuario) {
 
     // Delete the User
-    console.log("clase: ", clase, " | Usuario: ", usuario)
+    console.log("id: ", id, " | Usuario: ", usuario)
     try {
         var deleted = await Comment.remove({
-            clase: clase,
+            _id: id,
             usuario: usuario
         })
         console.log("Comment", deleted)

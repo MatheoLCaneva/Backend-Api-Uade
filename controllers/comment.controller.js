@@ -28,20 +28,23 @@ exports.getComments = async function (req, res, next) {
         });
     }
 }
-exports.getCommentsByClass = async function (req, res) {
+exports.getCommentsByMail = async function (req, res) {
 
     // Check the existence of the query parameters, If doesn't exists assign a default value
     var page = req.query.page ? req.query.page : 1
     var limit = req.query.limit ? req.query.limit : 10;
+
     let filtro = {
-        id: req.body.id
+        profesor: req.body.profesor,
+        estado: false
     }
+    console.log(filtro)
     try {
-        var Classes = await CommentService.getClasses(filtro, page, limit)
+        var Comments = await CommentService.getComments(filtro, page, limit)
         // Return the Users list with the appropriate HTTP password Code and Message.
         return res.status(200).json({
             status: 200,
-            data: Classes,
+            data: Comments,
             message: "Succesfully Class Recieved"
         });
     } catch (e) {
@@ -59,12 +62,15 @@ exports.createComment = async function (req, res) {
     var Comment = {
         comentario: req.body.comentario,
         clase: req.body.clase,
-        usuario: req.body.usuario
+        usuario: req.body.usuario,
+        profesor: req.body.profesor,
+        estado: req.body.estado
     }
     try {
         // Calling the Service function with the new object from the Request Body
         var createdComment = await CommentService.createComment(Comment)
         return res.status(201).json({
+            status: 201,
             createdComment,
             message: "Succesfully Created Comment"
         })
@@ -90,7 +96,8 @@ exports.updateComment = async function (req, res, next) {
 
     var Comment = {
         clase: req.body.clase,
-        usuario: req.body.usuario 
+        usuario: req.body.usuario, 
+        estado: req.body.estado
     }
     try {
         var updatedComment = await CommentService.updateState(Comment)
@@ -109,12 +116,12 @@ exports.updateComment = async function (req, res, next) {
 
 exports.removeComment = async function (req, res, next) {
 
-    var clase = req.body.clase
+    var comentarioId = req.body.comentarioId
     var usuario = req.body.usuario
 
     try {
-        var deleted = await CommentService.deleteComment(clase, usuario);
-        res.status(200).send("Succesfully Deleted... ", deleted);
+        var deleted = await CommentService.deleteComment(comentarioId, usuario);
+        res.status(200).json({status: 200, comment: deleted});
     } catch (e) {
         return res.status(400).json({
             status: 400,

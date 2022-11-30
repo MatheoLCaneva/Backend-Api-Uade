@@ -2,7 +2,8 @@
 var User = require('../models/User.model');
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
-
+var Class = require('../models/Class.model')
+var Comment = require('../models/Comment.model')
 // Saving the context of this module inside the _the variable
 _this = this
 
@@ -104,8 +105,26 @@ exports.updateUser = async function (user) {
         return false;
     }
     //Edit the User Object
+    var profesor = { profesormail: oldUser.email }
     oldUser.email = user.email
     oldUser.tel = user.tel
+
+    if (oldUser.rol == 'Profesor') {
+        try {
+            var classes = await Class.find(profesor)
+            classes.forEach(clase => {
+                clase.profesormail = user.email
+                clase.save()
+            })
+        }
+        catch (e) {
+            throw Error(e)
+        }
+    }
+
+
+
+
     try {
         var savedUser = await oldUser.save()
         return savedUser;

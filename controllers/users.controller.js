@@ -1,6 +1,5 @@
 var UserService = require('../services/user.service');
 var UserImgService =require('../services/userImg.service');
-
 // Saving the context of this module inside the _the variable
 _this = this;
 
@@ -105,7 +104,7 @@ exports.loginUser = async function (req, res) {
         // Calling the Service function with the new object from the Request Body
         var loginUser = await UserService.loginUser(User);
         if (loginUser===0)
-            return res.status(400).json({message: "Error en la contraseña"})
+            return res.status(400).json({status: 400, message: "Error en la contraseña"})
         else
             return res.status(201).json({loginUser, message: "Succesfully login"})
     } catch (e) {
