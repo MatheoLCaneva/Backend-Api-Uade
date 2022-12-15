@@ -58,7 +58,7 @@ exports.createClass = async function (req, res) {
     try {
         // Calling the Service function with the new object from the Request Body
         var createdClass = await ClassService.createClass(Class)
-        return res.status(201).json({createdClass   , message: "Succesfully Created Class"})
+        return res.status(201).json({status:201, createdClass , message: "Succesfully Created Class"})
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.
         console.log(e)

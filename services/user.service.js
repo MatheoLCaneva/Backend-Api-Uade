@@ -3,6 +3,7 @@ var User = require('../models/User.model');
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 var Class = require('../models/Class.model')
+const Contact = require('../models/Contact.model');
 var Comment = require('../models/Comment.model')
 // Saving the context of this module inside the _the variable
 _this = this
@@ -104,12 +105,10 @@ exports.updateUser = async function (user) {
     if (!oldUser) {
         return false;
     }
-    //Edit the User Object
-    var profesor = { profesormail: oldUser.email }
-    oldUser.email = user.email
-    oldUser.tel = user.tel
+
 
     if (oldUser.rol == 'Profesor') {
+        var profesor = { profesormail: oldUser.email }
         try {
             var classes = await Class.find(profesor)
             classes.forEach(clase => {
@@ -120,10 +119,63 @@ exports.updateUser = async function (user) {
         catch (e) {
             throw Error(e)
         }
+
+        try {
+            console.log(profesor)
+            var contacts = await Contact.find(profesor)
+            contacts.forEach(contact => {
+                contact.profesormail = user.email
+                contact.save()
+            })
+        }
+        catch (err) {
+            console.log(err)
+        }
+
+        try {
+            profesor = {profesor: oldUser.email}
+            var comments = await Comment.find(profesor)
+            comments.forEach(comment => {
+                comment.profesor = user.email
+                comment.save()
+            })
+        }
+        catch (err) {
+            console.log(err)
+        }
     }
 
+    else {
+        var estudiante = { usuario: oldUser.email }
+        console.log(estudiante)
+        try {
+            var comments = await Comment.find(estudiante)
+            comments.forEach(comment => {
+                comment.usuario = user.email
+                comment.save()
+            })
+        }
+        catch (err) {
+            console.log(err)
+        }
 
-
+        try {
+            estudiante = { mailContacto: oldUser.email }
+            var contacts = await Contact.find(estudiante)
+            console.log(contacts)
+            contacts.forEach(contact => {
+                contact.mailContacto = user.email
+                contact.telefonoContacto = user.tel
+                contact.save()
+            })
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+    //Edit the User Object
+    oldUser.email = user.email
+    oldUser.tel = user.tel
 
     try {
         var savedUser = await oldUser.save()

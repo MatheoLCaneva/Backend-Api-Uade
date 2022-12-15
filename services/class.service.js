@@ -11,7 +11,8 @@ exports.getClasses = async function (query, page, limit) {
     // Options setup for the mongoose paginate
     var options = {
         page,
-        limit
+        limit,
+        sort: { precio: 1 }
     }
     // Try Catch the awaited promise to handle the error 
     try {

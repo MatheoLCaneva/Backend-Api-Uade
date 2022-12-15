@@ -63,7 +63,7 @@ exports.createContact = async function (req, res) {
 }
 
 exports.updateContact = async function (req, res, next) {
-
+    console.log('controller reservas', req.body)
     // Id is necessary for the update
     if (!req.body._id) {
         return res.status(400).json({status: 400., message: "Id be present"})
