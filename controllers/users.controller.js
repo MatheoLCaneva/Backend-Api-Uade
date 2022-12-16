@@ -40,32 +40,36 @@ exports.createUser = async function (req, res) {
     console.log("llegue al controller", req.body)
     var email = { email: req.body.email }
     var checkUser = await UserService.getUsers(email)
-    if (checkUser.docs.length != 0) {
+    console.log(checkUser)
+    if (checkUser.total != 0) {
         return res.status(200).json({ status: 200 })
     }
-    var User = {
-        name: req.body.name,
-        apellido: req.body.apellido,
-        email: req.body.email,
-        password: req.body.password,
-        birth: req.body.birth,
-        rol: req.body.rol,
-        tel: req.body.tel,
-        title: req.body.title,
-        experience: req.body.experience,
-        estudios: req.body.estudios,
-        imgUser: req.body.imgUser,
-        descripcionProfesor: req.body.descripcionProfesor
+    else {
+        var User = {
+            name: req.body.name,
+            apellido: req.body.apellido,
+            email: req.body.email,
+            password: req.body.password,
+            birth: req.body.birth,
+            rol: req.body.rol,
+            tel: req.body.tel,
+            title: req.body.title,
+            experience: req.body.experience,
+            estudios: req.body.estudios,
+            imgUser: req.body.imgUser,
+            descripcionProfesor: req.body.descripcionProfesor
+        }
+        try {
+            // Calling the Service function with the new object from the Request Body
+            var createdUser = await UserService.createUser(User)
+            return res.status(201).json({ status: 201, createdUser, message: "Succesfully Created User" })
+        } catch (e) {
+            //Return an Error Response Message with Code and the Error Message.
+            console.log(e)
+            return res.status(400).json({ status: 400, message: "User Creation was Unsuccesfull" })
+        }
     }
-    try {
-        // Calling the Service function with the new object from the Request Body
-        var createdUser = await UserService.createUser(User)
-        return res.status(201).json({ status: 201, createdUser, message: "Succesfully Created User" })
-    } catch (e) {
-        //Return an Error Response Message with Code and the Error Message.
-        console.log(e)
-        return res.status(400).json({ status: 400, message: "User Creation was Unsuccesfull" })
-    }
+
 }
 
 exports.updateUser = async function (req, res, next) {

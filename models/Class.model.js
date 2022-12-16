@@ -11,7 +11,10 @@ var ClassSchema = new mongoose.Schema({
     precio: String,
     descripcion: String,
     profesor: Object,
-    profesormail: String
+    profesormail: String,
+    valoracion: Number,
+    cantValoraciones: Number,
+    totalValoracion: Number
 })
 
 ClassSchema.plugin(mongoosePaginate)

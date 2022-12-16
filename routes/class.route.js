@@ -13,6 +13,7 @@ router.post('/create', ClassController.createClass)
 router.get('/', ClassController.getClasses)
 router.post('/classById', ClassController.getClassById)
 router.put('/', ClassController.updateClass)
+router.put('/rating', ClassController.updateRating)
 router.delete('/', ClassController.removeClass)
 router.post('/sendMail', MailController.sendEmail)
 

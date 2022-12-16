@@ -58,11 +58,11 @@ exports.createClass = async function (req, res) {
     try {
         // Calling the Service function with the new object from the Request Body
         var createdClass = await ClassService.createClass(Class)
-        return res.status(201).json({status:201, createdClass , message: "Succesfully Created Class"})
+        return res.status(201).json({status:201, data: createdClass , message: "Succesfully Created Class"})
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.
         console.log(e)
-        return res.status(400).json({status: 400, message: "User Creation was Unsuccesfull"})
+        return res.status(400).json({status: 400, message: "Class Creation was Unsuccesfull"})
     }
 }
 
@@ -78,6 +78,23 @@ exports.updateClass = async function (req, res, next) {
     try {
         var updatedClass = await ClassService.updateClass(Clase)
         return res.status(200).json({status: 200, data: updatedClass, message: "Succesfully Updated Class"})
+    } catch (e) {
+        return res.status(400).json({status: 400., message: e.message})
+    }
+}
+
+exports.updateRating = async function (req, res, next) {
+
+    // Id is necessary for the update
+    if (!req.body._id) {
+        return res.status(400).json({status: 400., message: "Id be present"})
+    }
+
+    var Clase = req.body
+
+    try {
+        var updatedClass = await ClassService.updateClassRating(Clase)
+        return res.status(200).json({status: 200, data: updatedClass, message: "Succesfully Updated Rating"})
     } catch (e) {
         return res.status(400).json({status: 400., message: e.message})
     }

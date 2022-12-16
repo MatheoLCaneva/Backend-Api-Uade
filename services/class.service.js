@@ -1,5 +1,6 @@
 // Gettign the Newly created Mongoose Model we just created 
 var Class = require('../models/Class.model')
+var Contact = require('../models/Contact.model')
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 
@@ -41,12 +42,16 @@ exports.createClass = async function (clase) {
         precio: clase.precio,
         descripcion: clase.descripcion,
         profesor: clase.profesor,
-        profesormail: clase.profesormail
+        profesormail: clase.profesormail,
+        valoracion: 0,
+        cantValoraciones: 0,
+        totalValoracion: 0
     })
 
     try {
         // Saving the User 
         var savedClass = await newClass.save();
+        return savedClass
     } catch (e) {
         // return a Error message describing the reason 
         console.log(e)
@@ -81,6 +86,53 @@ exports.updateClass = async function (clase) {
     console.log(oldClass)
 
 
+
+    try {
+        var savedClass = await oldClass.save()
+        return savedClass;
+    } catch (e) {
+        throw Error("And Error occured while updating the Class");
+    }
+}
+
+exports.updateClassRating = async function (clase) {
+
+    var _id = { _id: clase._id }
+    console.log(_id)
+    try {
+        //Find the old User Object by the Id    
+        var oldClass = await Class.findOne(_id);
+    } catch (e) {
+        throw Error("Error occured while Finding the Class")
+    }
+    // If no old User Object exists return false
+    if (!oldClass) {
+
+        return false;
+
+    }
+
+    console.log('old clase', oldClass)
+
+    const cantValoraciones = oldClass.cantValoraciones + 1
+    const totalValoracion = oldClass.totalValoracion + clase.valoracion
+
+    console.log(cantValoraciones, totalValoracion)
+
+    oldClass.totalValoracion = totalValoracion
+    oldClass.cantValoraciones = cantValoraciones
+    oldClass.valoracion = (totalValoracion) / cantValoraciones
+
+    try {
+        var email = { mailContacto: clase.email }
+        const Contacto = await Contact.findOne(email)
+        console.log('contacto a cambiar', Contacto)
+        Contacto.valoracion = clase.valoracion
+        await Contacto.save()
+    }
+    catch (err){
+        throw Error('Error al actualizar contacto')
+    }
 
     try {
         var savedClass = await oldClass.save()
