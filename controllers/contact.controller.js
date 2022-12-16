@@ -71,7 +71,8 @@ exports.updateContact = async function (req, res, next) {
 
     var Contact = {
         _id: req.body._id,
-        estado: req.body.estado
+        estado: req.body.estado,
+        valoracion: req.body.valoracion
     }
     try {
         var updatedContact = await ContactService.updateContact(Contact)

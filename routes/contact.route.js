@@ -12,7 +12,7 @@ router.get('/test', function (req, res) {
 router.post('/create', ContactController.createContact)
 router.get('/', ContactController.getContacts)
 router.post('/contactsByMail', ContactController.getContactByMail)
-router.put('/', ContactController.updateContact)
+router.put('/update', ContactController.updateContact)
 router.delete('/', ContactController.removeContact)
 router.post('/sendMail', MailController.sendEmail)
 

@@ -70,6 +70,7 @@ exports.updateContact = async function (contacto) {
     }
     
     oldContact.estado = contacto.estado
+    oldContact.valoracion = contacto.valoracion
 
     try {
         var savedContact = await oldContact.save()

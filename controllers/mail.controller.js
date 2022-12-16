@@ -1,28 +1,30 @@
 let nodemailer = require('nodemailer');
+const SMTPPool = require('nodemailer/lib/smtp-pool');
 
 
 exports.sendEmail = async function (req, res, next){
-    
+    console.log("mail",req)
     // Definimos el transporter
     var transporter = nodemailer.createTransport({
         //host: 'svp-02715.fibercorp.local',
-        //secure: false,
+        secure: true,
         port:25,
-        service: 'Gmail',
+        service: 'gmail',
+        host: 'smtp.gmail.com',
         auth: {
-            user: 'matheocaneva@gmail.com',//poner cuenta gmail
-            pass: 'gifnmwfyynkuafgn'  //contraseña cuenta  IMPORTANTE HABILITAR acceso apps poco seguras google
+            user: 'infoapiprofesor@gmail.com',//poner cuenta gmail
+            pass: 'hxlukygraepvxvla'  //contraseña cuenta  IMPORTANTE HABILITAR acceso apps poco seguras google
         }
      });
     // Definimos el email
     var mailOptions = {
-        from: 'matheocaneva@gmail.com',
-        to: req.body.destinatario,
+        from: 'infoapiprofesor@gmail.com',
+        to: req.body.textoRechazo.email,
         subject: req.body.asunto,
-        html: '<h3>' +req.body.texto+'</h3>',
+        html: '<h3>' +req.body.textoRechazo.mensaje+'</h3>',
         
     };
-    console.log("mail",mailOptions)
+    //console.log("mail",mailOptions)
     // Enviamos el email
     try
     {

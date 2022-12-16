@@ -10,7 +10,8 @@ var ContactSchema = new mongoose.Schema({
     horario: String,
     clase: Object,
     claseId: String,
-    estado: String
+    estado: String,
+    valoracion: Number,
 
 })
 
