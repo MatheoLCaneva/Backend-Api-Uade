@@ -6,6 +6,7 @@ var CommentSchema = new mongoose.Schema({
     usuario: String,
     profesor: String,
     clase: String,
+    materia: String,
     estado: Boolean
 })
 

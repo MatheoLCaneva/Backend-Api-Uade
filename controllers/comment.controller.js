@@ -64,6 +64,7 @@ exports.createComment = async function (req, res) {
         clase: req.body.clase,
         usuario: req.body.usuario,
         profesor: req.body.profesor,
+        materia: req.body.materia,
         estado: req.body.estado
     }
     try {

@@ -40,6 +40,7 @@ exports.createContact = async function (contacto) {
         mailContacto: contacto.mailContacto,
         horario: contacto.horario,
         claseId: contacto.claseId,
+        materia: contacto.materia,
         estado: 'Solicitada'
     })
 
@@ -79,6 +80,32 @@ exports.updateContact = async function (contacto) {
         throw Error("And Error occured while updating the Contact");
     }
 }
+
+exports.finishContact = async function (contacto) {
+
+    var _id = { _id: contacto._id }
+
+    try {
+        //Find the old User Object by the Id    
+        var oldContact = await Contacto.findOne(_id);
+    } catch (e) {
+        throw Error("Error occured while Finding the Contact")
+    }
+    // If no old User Object exists return false
+    if (!oldContact) {
+        return false;
+    }
+    
+    oldContact.estado = contacto.estado
+
+    try {
+        var savedContact = await oldContact.save()
+        return savedContact;
+    } catch (e) {
+        throw Error("And Error occured while updating the Contact");
+    }
+}
+
 
 exports.deleteContact = async function (id) {
 

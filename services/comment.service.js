@@ -35,6 +35,7 @@ exports.createComment = async function (comment) {
         usuario: comment.usuario,
         clase: comment.clase,
         estado: comment.estado,
+        materia: comment.materia,
         profesor: comment.profesor
     })
 

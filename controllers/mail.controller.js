@@ -3,6 +3,7 @@ const SMTPPool = require('nodemailer/lib/smtp-pool');
 
 
 exports.sendEmail = async function (req, res, next) {
+    console.log('REQ.BODY A VER',req.body)
     // Definimos el transporter
     var transporter = nodemailer.createTransport({
         //host: 'svp-02715.fibercorp.local',

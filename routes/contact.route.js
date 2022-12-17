@@ -13,6 +13,7 @@ router.post('/create', ContactController.createContact)
 router.get('/', ContactController.getContacts)
 router.post('/contactsByMail', ContactController.getContactByMail)
 router.put('/update', ContactController.updateContact)
+router.put('/end', ContactController.finishContact)
 router.delete('/', ContactController.removeContact)
 router.post('/sendMail', MailController.sendEmail)
 

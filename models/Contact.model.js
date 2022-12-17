@@ -12,6 +12,7 @@ var ContactSchema = new mongoose.Schema({
     claseId: String,
     estado: String,
     valoracion: Number,
+    materia: String,
 
 })
 
