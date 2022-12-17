@@ -133,7 +133,7 @@ exports.updateUser = async function (user) {
         }
 
         try {
-            profesor = {profesor: oldUser.email}
+            profesor = { profesor: oldUser.email }
             var comments = await Comment.find(profesor)
             comments.forEach(comment => {
                 comment.profesor = user.email
@@ -176,6 +176,33 @@ exports.updateUser = async function (user) {
     //Edit the User Object
     oldUser.email = user.email
     oldUser.tel = user.tel
+
+    try {
+        var savedUser = await oldUser.save()
+        return savedUser;
+    } catch (e) {
+        throw Error("And Error occured while updating the User");
+    }
+}
+
+exports.updateUserPassword = async function (user) {
+
+    var email = { email: user.email }
+    console.log('pase el controller')
+    try {
+        //Find the old User Object by the Id
+        var oldUser = await User.findOne(email);
+    } catch (e) {
+        throw Error("Error occured while Finding the User")
+    }
+    // If no old User Object exists return false
+    if (!oldUser) {
+        return false;
+    }
+    
+    var hashedPassword = bcrypt.hashSync(user.password, 8);
+    oldUser.password = hashedPassword
+
 
     try {
         var savedUser = await oldUser.save()

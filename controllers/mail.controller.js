@@ -49,7 +49,17 @@ exports.sendEmail = async function (req, res, next) {
             from: 'infoapiprofesor@gmail.com',
             to: req.body.obj.email,
             subject: req.body.obj.asunto,
-            html: `<h1>Estimado/a </h1> </br> <h3> ${req.body.obj.mensaje}</h3> </br>`,
+            html: `<h1>Estimado/a </h1> </br> <h3> ${req.body.obj.mensaje}</h3>`,
+
+        };
+    }
+
+    else if (req.body.obj.tipo == 4) {
+        var mailOptions = {
+            from: 'infoapiprofesor@gmail.com',
+            to: req.body.obj.email,
+            subject: req.body.obj.asunto,
+            html: `<h1>Estimado/a </h1> </br> <h3> ${req.body.obj.mensaje}</h3>  </br> <a>http://localhost:3000/nuevacontrasena/${req.body.obj.email}</a>`,
 
         };
     }

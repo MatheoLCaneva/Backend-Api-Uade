@@ -89,6 +89,22 @@ exports.updateUser = async function (req, res, next) {
     }
 }
 
+exports.updatePassword = async function (req, res, next) {
+
+    // Id is necessary for the update
+
+    var User = {
+        email: req.body.email,
+        password: req.body.password
+    }
+    try {
+        var updatedUser = await UserService.updateUserPassword(User)
+        return res.status(200).json({ status: 200, message: "Succesfully Updated Password" })
+    } catch (e) {
+        return res.status(400).json({ status: 400., message: e.message })
+    }
+}
+
 exports.removeUser = async function (req, res, next) {
 
     var mail = req.body.mail;

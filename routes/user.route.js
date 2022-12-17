@@ -16,6 +16,7 @@ router.post('/login/', UserController.loginUser)
 router.get('/',Authorization, UserController.getUsers)
 router.post('/userByMail', UserController.getUsersByMail)
 router.put('/', UserController.updateUser)
+router.put('/password', UserController.updatePassword)
 router.delete('/', Authorization, UserController.removeUser)
 router.post('/sendMail',MailController.sendEmail)
 
